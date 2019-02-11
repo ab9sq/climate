@@ -1,0 +1,111 @@
+---
+title: "Exploring climate data"
+author: "Nick Lauerman"
+date: "February 11, 2019"
+output: 
+  pdf_document: 
+    fig_caption: yes
+    fig_height: 6.5
+    fig_width: 6.5
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# load data
+The Waukegan Regional Airport data will be used as the test data set for
+developing the load, or import, process. Remove data that is standard in the
+download.
+```{r}
+KUGN <- read.csv(file = "./data/Waukegan/obs.csv",
+                 stringsAsFactors = FALSE)
+KUGN$STATION <- "Waukagen Airport"
+KUGN$NAME <- NULL
+```
+
+# Format data
+Format the date froma text field to a date data type and compute the Average Temperature (TAVG). This is not always computed for a station.
+```{r}
+KUGN$DATE <- as.Date(KUGN$DATE,
+                     format = "%Y-%m-%d")
+KUGN$TAVG <- (KUGN$TMAX + KUGN$TMIN)/2 
+```
+
+# Set variable names
+Change variable names to names that comply with the coding standard
+```{r}
+Cnames <- c("Station",
+            "Date",
+           "Precip",
+           "AverageTemp",
+           "MaxTemp",
+           "MinTemp")
+names(KUGN) <- Cnames
+rm(Cnames)
+```
+
+#norms
+```{r}
+kugnNorms <- read.csv("./data/Waukegan/norms.csv",
+                      stringsAsFactors = FALSE)
+kugnNorms$STATION <- "Waukagen Airport"
+kugnNorms$STATION_NAME <- NULL
+kugnNorms$DATE <- as.Date(as.character( kugnNorms$DATE),
+                          format = "%Y%m%d")
+Cnames <- c("Station",
+            "Date",
+            "averageTemp",
+            "averageDutrTemp",
+            "normalMaxTemp",
+            "normalMinTemp",
+            "averageTempSD",
+            "averageDutrTempSD",
+            "maxTempSD",
+            "minTempSD")
+names(kugnNorms) <- Cnames
+rm(Cnames)
+```
+
+
+
+
+#graphical exploration
+Couple of plots to check data
+```{r}
+plot(x = KUGN$Date, y = KUGN$MaxTemp,
+     type = "l",
+     col = "red",
+     main = "Daily Max Tempature",
+     xlab = "Day",
+     ylab = "tempature (F)")
+plot(x = KUGN$Date, y=KUGN$MinTemp,
+     type = "l",
+     col = "blue",
+     main = "Daily Min Tempature",
+     xlab = "Day",
+     ylab = "tempature (F)")
+plot(x = KUGN$Date, y = KUGN$Precip,
+     type = "l",
+     col = "red",
+     main = "Daily precip",
+     xlab = "Day",
+     ylab = "inches")
+plot(x= kugnNorms$Date, y=kugnNorms$normalMaxTemp,
+     type = "l",
+     col = "red",
+     main = "Normal Daily Max Tempature",
+     xlab = "Day",
+     ylab = "tempature (F)")
+plot(x= kugnNorms$Date, y=kugnNorms$normalMinTemp,
+     type = "l",
+     col = "blue",
+     main = "Normal Daily Min Tempature",
+     xlab = "Day",
+     ylab = "tempature (F)")
+
+
+```
+
+
