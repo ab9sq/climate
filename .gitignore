@@ -12,7 +12,7 @@ note*.*
 # temp files
 *.tmp
 
-#     R specifics
+#     R specifics fri=om gethub
 #
 # R files
 cache/*
@@ -33,23 +33,25 @@ cache/*
 
 
 # produced vignettes
-#vignettes/*.html
-#vignettes/*.pdf
+vignettes/*.html
+vignettes/*.pdf
 
 #ZIP archives
 *.zip
 
 # For Word
 ~$*.doc*
-# For LaTeX and LaTeX via Sweave in RStudio
-# Sweave in RStudio
+
+#         For LaTeX and LaTeX via Sweave in RStudio
+#              Sweave in RStudio
 *-concordance.tex
 
-#
-#           For LaTeX & Sweave
-#
-#TeXStudio
+#          For TeXStudio
 *.txss
+
+#
+#           For LaTeX & Sweave frin Github
+#
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
